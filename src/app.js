@@ -1,54 +1,55 @@
-// importss dependencies and fles
+//imports dependencies and files
 import React, { Component } from "react";
 import Navbar from "./components/navbar";
-import Jumbotron from "./components/jumbortron";
+import Jumbotron from "./components/jumbotron";
 import FriendCard from "./components/friendCard";
 import Footer from "./components/footer";
-import transformer from "./transformer.json";
+import transf from "./transformer.json";
 import "./app.css";
 
-//set state to 0 or empty
+//sets state to 0 or empty
 class App extends Component {
   state = {
-    transformer,
+    transf,
     clickedTransf: [],
     score: 0
   };
 
-  //when you click on a card...the bot is taken out of the array
+//when you click on a card ... the fish is taken out of the array
   imageClick = event => {
-    const curentTransf = event.target.alt;
-    const TranfClicked =
-      this.state.clickedTransf.indexOf(currentTranfs) > -1;
+    const currentTransf = event.target.alt;
+    const TransfAlreadyClicked =
+      this.state.clickedTransf.indexOf(currentTransf) > -1;
 
-    // if your click on a bot that has already been selected, the game is reset and cards reordered
-    if (clickedTransf) {
+//if you click on a fish that has already been selected, the game is reset and cards reordered
+    if (TransfAlreadyClicked) {
       this.setState({
-        transformer: this.state.transformer.sort(function (a, b) {
+        transf: this.state.transf.sort(function(a, b) {
           return 0.5 - Math.random();
         }),
         clickedTransf: [],
         score: 0
       });
-      alert("You Lose. Play Again?");
+        alert("You lose. Play again?");
 
-      //if you click on an available fish, your score is increased and cards reordered
+//if you click on an available fish, your score is increased and cards reordered
     } else {
-      this.setState({
-          transformer: this.state.transformer.sort(function (a, b) {
+      this.setState(
+        {
+          Transf: this.state.transf.sort(function(a, b) {
             return 0.5 - Math.random();
           }),
           clickedTransf: this.state.clickedTransf.concat(
-            currenttransf
+            currentTransf
           ),
           score: this.state.score + 1
-        }
-        // if you get all 12 bots correct you get a congrats message and the game resets
+        },
+//if you get all 12 fish corrent you get a congrats message and the game resets        
         () => {
           if (this.state.score === 12) {
-            alert("Yay! you Win!");
+            alert("Yay! You Win!");
             this.setState({
-              transformer: this.state.transformer.sort(function (a, b) {
+              fish: this.state.transf.sort(function(a, b) {
                 return 0.5 - Math.random();
               }),
               clickedTransf: [],
@@ -60,36 +61,28 @@ class App extends Component {
     }
   };
 
-  //the order of components to be renderss: navbar, jumborton, friendCard, footer
+//the order of components to be rendered: navbar, jumbotron, friendcard, footer 
   render() {
     return (
-       <div>
-      <
-      Navbar score = {
-        this.state.score
-      }
-      /> 
-      <Jumbotron / >
-      <div className = "wrapper" > {
-        this.state.transformer.map(transformer => ( <
-          FriendCard imageClick = {
-            this.imageClick
-          }
-          id = {
-            transformer.id
-          }
-          key = {
-            transformer.id
-          }
-          image = {
-            transformer.image
-          }
-          />
-        ))
-      } </div> <Footer / >
+      <div>
+        <Navbar 
+          score={this.state.score}
+        />
+        <Jumbotron />
+        <div className="wrapper">
+          {this.state.transf.map(transf => (
+            <FriendCard
+              imageClick={this.imageClick}
+              id={transf.id}
+              key={transf.id}
+              image={transf.image}
+            />
+          ))}
+        </div>
+        <Footer />
       </div>
     );
   }
 }
-
 export default App;
+
