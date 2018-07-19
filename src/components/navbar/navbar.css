@@ -12,6 +12,7 @@ itemCenter {
 }
 
 itemRight {
+  flex: right;
   width: 15%;
 }
 
